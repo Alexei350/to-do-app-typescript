@@ -58,20 +58,20 @@ class App extends Component {
                 </Text>
               </View>
               <Button
-                title='X'
+                title=' X '
                 color='red'
                 onPress={() => this.removeTask(index)} />
             </View>}
           keyExtractor={(item, index) => index.toString()}
         />
 
-        <View style={styles.addTask}>
-          <Text style={{ fontSize: 16 }}>
+        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          {/* <Text style={{ fontSize: 16 }}>
             Nova tarefa: 
-          </Text>
+          </Text> */}
           <TextInput
             style={styles.input}
-            placeholder="Descrição"
+            placeholder="Tarefa"
             onChangeText={texto => this.setState({ buffer: texto })}
             onSubmitEditing={this.addTask}
             returnKeyType="done"
@@ -79,7 +79,7 @@ class App extends Component {
             value={this.state.buffer}/>
           <Button
             onPress={this.addTask}
-            title="Adicionar" />
+            title=" + " />
         </View>
 
         <StatusBar style="auto" />
@@ -108,12 +108,12 @@ const styles = StyleSheet.create({
   input: {
     borderColor: '#555',
     borderWidth: 1,
-    padding: 5,
+    padding: 8,
     borderRadius: borda,
-    marginTop: 8,
-    marginBottom: 8,
+    marginRight: 8,
     alignContent: 'center',
-    fontSize: 16
+    fontSize: 16,
+    width: 300
   },
 
   addLine: {
