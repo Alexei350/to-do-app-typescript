@@ -15,7 +15,8 @@ class Item {
 class App extends Component {
   state = {
     buffer: '',
-    lista: [new Item('teste', false)]
+    lista: new Array<Item>()
+    // lista: [ new Item('Teste', false), new Item('Tarefa 2', false) ]
   }
 
   addTask = () => {
@@ -48,43 +49,94 @@ class App extends Component {
           data={this.state.lista}
           renderItem={({ item, index }) =>
             <View style={styles.item}>
-              <CheckBox value={item.concluido} />
-              <Text>{item.texto}</Text>
-              <Button title='X' onPress={() => this.removeTask(index)}/>
+              <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                <CheckBox
+                  value={item.concluido}/>
+                <Text 
+                  style={styles.texto}>
+                  {item.texto}
+                </Text>
+              </View>
+              <Button
+                title='X'
+                color='red'
+                onPress={() => this.removeTask(index)} />
             </View>}
           keyExtractor={(item, index) => index.toString()}
         />
-        <TextInput
-          style={styles.add}
-          placeholder="Nova tarefa"
-          onChangeText={texto => this.setState({ buffer: texto })}
-          onSubmitEditing={this.addTask}
-          returnKeyType="done"
-          returnKeyLabel="Adicionar" />
+
+        <View style={styles.addTask}>
+          <Text style={{ fontSize: 16 }}>
+            Nova tarefa: 
+          </Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Descrição"
+            onChangeText={texto => this.setState({ buffer: texto })}
+            onSubmitEditing={this.addTask}
+            returnKeyType="done"
+            returnKeyLabel="Adicionar"
+            value={this.state.buffer}/>
+          <Button
+            onPress={this.addTask}
+            title="Adicionar" />
+        </View>
+
         <StatusBar style="auto" />
       </View>
     );
   }
 }
+ 
+const borda = 8;
 
 const styles = StyleSheet.create({
   container: {
-    margin: 100,
+    marginTop: 50,
+    margin: 25,
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
     justifyContent: 'center',
   },
-  add: {
-    borderColor: 'blue',
-    borderWidth: 2,
-    padding: 5,
-    marginBottom: 10,
-    borderRadius: 5
+
+  addTask: {
+    paddingTop: 8,
+    borderTopColor: '#555',
+    borderTopWidth: 2
   },
+
+  input: {
+    borderColor: '#555',
+    borderWidth: 1,
+    padding: 5,
+    borderRadius: borda,
+    marginTop: 8,
+    marginBottom: 8,
+    alignContent: 'center',
+    fontSize: 16
+  },
+
+  addLine: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+
   item: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
+    borderRadius: borda,
+    borderColor: '#555',
+    borderWidth: 1,
+    fontSize: 12,
+    marginBottom: 8,
+    padding: 5
+  },
+
+  texto: {
+    margin: 10,
+    fontSize: 16,
+    marginRight: 30
   }
 });
 
